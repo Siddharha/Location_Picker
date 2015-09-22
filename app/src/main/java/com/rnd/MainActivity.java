@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void pointerHotpoint() {
         Point_x = (int) (mark.getX()+(mark.getWidth()/2));
-        Point_y = (int) (mark.getY()+(mark.getHeight()/2));
+        Point_y = (int) (mark.getY()+(mark.getHeight()));
         Log.e("Position : ",Point_x+","+Point_y);
         projection = map.getProjection();
         x_y_points = new Point(Point_x,Point_y);
