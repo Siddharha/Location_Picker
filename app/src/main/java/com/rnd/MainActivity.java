@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.CameraUpdate;
@@ -49,15 +50,32 @@ public class MainActivity extends AppCompatActivity {
         initialize();
         mapView.onCreate(savedInstanceState);
         mapView.onResume();
+
     }
+
 
 
     @Override
     protected void onResume() {
         super.onResume();
         loadMap();
+        initializeView();
         setPicker();
     }
+
+    private void initializeView() {
+        map.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
+            @Override
+            public void onMapLoaded() {
+                if(!(map.getMyLocation() == null))
+                {
+                    Toast.makeText(getBaseContext(),"I Found your Location",Toast.LENGTH_SHORT).show();
+                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(map.getMyLocation().getLatitude(),map.getMyLocation().getLongitude()),12));
+                }
+            }
+        });
+    }
+
     private void initialize() {
         mapView = (MapView)findViewById(R.id.view);
         mark = (ImageView)findViewById(R.id.mark);
@@ -67,7 +85,8 @@ public class MainActivity extends AppCompatActivity {
         MapsInitializer.initialize(MainActivity.this);
         map = mapView.getMap();
         map.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
-       // map.setMyLocationEnabled(true);
+        map.setMyLocationEnabled(true);
+        map.getUiSettings().setMyLocationButtonEnabled(false);
         map.setBuildingsEnabled(true);
 
       //  map.animateCamera(CameraUpdateFactory.zoomBy(10));
@@ -183,5 +202,4 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
-
 }
