@@ -1,6 +1,6 @@
 package com.rnd;
 
-import android.content.Context;
+import android.content.Intent;
 import android.graphics.Point;
 import android.location.Address;
 import android.location.Geocoder;
@@ -8,16 +8,12 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.DragEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.android.gms.location.places.ui.PlacePicker;
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -33,8 +29,6 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity {
     private MapView mapView;
     private GoogleMap map;
-    private PlacePicker.IntentBuilder builder;
-    private Context context;
     private ImageView mark;
     private Projection projection;
     private int Point_x,Point_y;
@@ -69,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
             public void onMapLoaded() {
                 if(!(map.getMyLocation() == null))
                 {
-                    Toast.makeText(getBaseContext(),"I Found your Location",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(),"I Got you",Toast.LENGTH_SHORT).show();
                     map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(map.getMyLocation().getLatitude(),map.getMyLocation().getLongitude()),12));
                 }
             }
@@ -202,4 +196,10 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
+
+    public void search_clk(View view)
+    {
+startActivity(new Intent(this,SearchActivity.class));
+    }
+
 }

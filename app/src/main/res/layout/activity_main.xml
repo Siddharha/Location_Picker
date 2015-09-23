@@ -36,7 +36,8 @@
         android:layout_alignLeft="@+id/view"
         android:layout_alignStart="@+id/view"
         android:padding="10dp"
-        android:layout_margin="20dp">
+        android:layout_margin="20dp"
+        android:onClick="search_clk">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="50dp"
